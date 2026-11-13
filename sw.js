@@ -1,11 +1,9 @@
 /* 月汐 SULEN · 离线缓存 */
-const CACHE = "yuexi-v1";
+const CACHE = "yuexi-v2";
 const ASSETS = [
   "./", "./index.html", "./about.html", "./manifest.json",
   "./assets/base.css", "./assets/engine.js", "./assets/pwa.js", "./assets/icon.svg",
-  "./games/tide/index.html", "./games/tide/game.js",
-  "./games/line/index.html", "./games/line/game.js",
-  "./games/moon/index.html", "./games/moon/game.js",
+  "./games/_template/index.html", "./games/_template/game.js",
 ];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));

@@ -68,3 +68,13 @@ canvas{display:block;width:100%;height:100%;touch-action:none}
 .btn{display:inline-block;font:700 14px/1 inherit;color:#08101f;background:linear-gradient(135deg,var(--accent),var(--accent2));
   border:0;border-radius:12px;padding:13px 22px;cursor:pointer}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line2)}
+
+/* 空状态 */
+.empty{grid-column:1/-1;padding:38px 22px;border:1px dashed var(--line2);border-radius:16px;text-align:center}
+.empty .ico{font-size:26px;display:block;margin-bottom:10px}
+.empty h2{margin:0 0 8px;font-size:17px}
+.empty p{margin:0;color:var(--muted);font-size:13px;line-height:1.7}
+
+/* 游戏卡：列表项 */
+.card .meta{display:flex;gap:10px;align-items:center;font:500 11.5px/1 var(--mono);color:var(--muted);margin-top:10px}
+.card .meta span{display:inline-flex;align-items:center;gap:4px}

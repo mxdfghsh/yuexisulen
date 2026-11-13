@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#050810">
+<title>游戏名 · 月汐 SULEN</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+<link rel="stylesheet" href="../../assets/base.css">
+</head>
+<body class="gamepage">
+<div class="hud">
+  <a class="back" href="../../index.html">← 退出</a>
+  <div class="score" id="hud">—</div>
+</div>
+<canvas id="cv"></canvas>
+
+<div class="overlay" id="start">
+  <div class="overlay-inner">
+    <h2>游戏名</h2>
+    <p>一句话玩法说明。</p>
+    <button class="btn" id="go" type="button">开始</button>
+  </div>
+</div>
+
+<script src="../../assets/engine.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
