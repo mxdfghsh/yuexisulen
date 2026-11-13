@@ -1,0 +1,70 @@
+/* 月汐 SULEN · 共用样式 */
+:root{
+  --bg:#080b14; --bg2:#0d1322; --surface:#121a2c; --surface2:#182139;
+  --ink:#eaf0ff; --muted:#8b98b8; --line:rgba(170,195,255,.16); --line2:rgba(170,195,255,.34);
+  --accent:#8fb6ff; --accent2:#c9aaff; --ok:#66e0b8; --warn:#ffd166; --err:#ff8fa3;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --serif:"Songti SC","STSong","Noto Serif CJK SC",serif;
+  --nav-h:60px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(120% 80% at 80% -10%, rgba(143,182,255,.14), transparent 60%),
+    radial-gradient(90% 60% at 8% 0%, rgba(201,170,255,.10), transparent 55%),
+    var(--bg);
+  color:var(--ink);
+  font:15px/1.6 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  min-height:100svh; -webkit-tap-highlight-color:transparent;
+}
+a{color:var(--accent);text-decoration:none}
+.nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:12px 18px;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:700;letter-spacing:.02em}
+.brand .moon{font-size:18px}
+.brand small{display:block;font:500 10px/1 var(--mono);color:var(--muted);letter-spacing:.22em;margin-top:2px}
+.nav-links{display:flex;gap:14px;font-size:13.5px}
+.nav-links a{color:var(--muted)}
+.nav-links a:hover,.nav-links a.on{color:var(--ink)}
+.wrap{max-width:960px;margin:0 auto;padding:0 18px}
+.hero{padding:44px 0 26px}
+.eyebrow{font:600 10.5px/1 var(--mono);letter-spacing:.28em;color:var(--muted);margin:0 0 14px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--accent);display:block}
+h1{margin:0 0 14px;font-size:clamp(28px,7vw,46px);line-height:1.22;letter-spacing:-.01em}
+h1 em{font-style:normal;font-family:var(--serif);color:var(--accent)}
+.lead{margin:0;color:var(--muted);max-width:34em;font-size:14.5px}
+.games{display:grid;gap:12px;padding:8px 0 40px}
+@media(min-width:680px){.games{grid-template-columns:1fr 1fr}}
+.card{display:block;padding:18px;border-radius:16px;border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--surface),var(--surface2));color:var(--ink);
+  transition:border-color .18s,transform .18s}
+.card:hover{border-color:var(--line2);transform:translateY(-2px)}
+.card .ico{font-size:22px}
+.card h2{margin:8px 0 6px;font-size:17px}
+.card p{margin:0 0 10px;color:var(--muted);font-size:13px;line-height:1.6}
+.card .go{font:600 12.5px/1 var(--mono);color:var(--accent)}
+.card.soon{opacity:.55;pointer-events:none}
+.tag{display:inline-block;font:600 10px/1 var(--mono);padding:4px 7px;border-radius:6px;
+  border:1px solid var(--line);color:var(--muted);margin-left:6px;vertical-align:2px}
+.tag.new{border-color:var(--accent);color:var(--accent)}
+footer{padding:28px 18px 40px;text-align:center;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+
+/* 游戏页通用 */
+.gamepage{position:fixed;inset:0;overflow:hidden;background:#050810}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+.hud{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;font:600 12.5px/1 var(--mono);color:var(--ink);pointer-events:none}
+.hud .back{pointer-events:auto;color:var(--ink);text-decoration:none;background:rgba(10,16,30,.6);
+  border:1px solid var(--line);border-radius:999px;padding:7px 11px;backdrop-filter:blur(8px)}
+.hud .score{background:rgba(10,16,30,.55);border:1px solid var(--line);border-radius:999px;padding:7px 12px}
+.overlay{position:fixed;inset:0;z-index:25;display:grid;place-items:center;padding:24px;
+  background:rgba(5,8,16,.82);backdrop-filter:blur(6px);text-align:center}
+.overlay-inner{max-width:340px}
+.overlay h2{margin:0 0 10px;font-size:22px}
+.overlay p{margin:0 0 18px;color:var(--muted);font-size:13.5px;line-height:1.7}
+.btn{display:inline-block;font:700 14px/1 inherit;color:#08101f;background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border:0;border-radius:12px;padding:13px 22px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line2)}

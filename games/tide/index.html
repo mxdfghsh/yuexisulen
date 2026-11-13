@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#050810">
+<title>潮汐跳 · 月汐 SULEN</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
+<link rel="stylesheet" href="../../assets/base.css">
+</head>
+<body class="gamepage">
+<div class="hud">
+  <a class="back" href="../../index.html">← 退出</a>
+  <div class="score"><span id="score">0</span> 米</div>
+</div>
+<canvas id="cv"></canvas>
+
+<div class="overlay" id="start">
+  <div class="overlay-inner">
+    <h2>潮汐跳</h2>
+    <p>按住屏幕左右拖动来移动，踩到浮板就会自动弹起。<br>潮水一直在涨——往上跳，别被淹到。</p>
+    <button class="btn" id="go" type="button">开始</button>
+  </div>
+</div>
+
+<div class="overlay" id="over" hidden>
+  <div class="overlay-inner">
+    <h2>被潮水淹了</h2>
+    <p>这次到了 <b><span id="final">0</span> 米</b>，最高 <b><span id="best">0</span> 米</b>。</p>
+    <button class="btn" id="again" type="button">再来一次</button>
+    <p style="margin-top:14px"><a href="../../index.html" style="color:var(--muted);font-size:12.5px">回月汐</a></p>
+  </div>
+</div>
+
+<script src="../../assets/engine.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

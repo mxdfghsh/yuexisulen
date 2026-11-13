@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080b14">
+<title>月汐 · SULEN</title>
+<meta name="description" content="月汐 SULEN —— 自己写的网页小游戏，打开就能玩，不跳转、不下载。">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon.svg">
+<meta property="og:title" content="月汐 · SULEN">
+<meta property="og:description" content="自己写的网页小游戏，打开就能玩。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/base.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="./"><span class="moon">🌙</span><span>月汐<small>SULEN</small></span></a>
+  <div class="nav-links">
+    <a href="./" class="on">游戏</a>
+    <a href="about.html">关于</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">SELF-MADE GAMES</p>
+    <h1>自己写的<em>小游戏</em>，<br>打开就能玩</h1>
+    <p class="lead">不跳转、不下载、不接广告。所有游戏都是这个站自己写的代码，断网也能玩。</p>
+  </header>
+
+  <section class="games">
+    <a class="card" href="games/tide/index.html">
+      <span class="ico">🌊</span>
+      <h2>潮汐跳 <span class="tag new">新</span></h2>
+      <p>按住拖动控制落点，踩到浮板自动弹起。潮水一直在涨，往上跳。</p>
+      <span class="go">开始 →</span>
+    </a>
+
+    <a class="card" href="games/line/index.html">
+      <span class="ico">✏️</span>
+      <h2>汐岸速写 <span class="tag new">新</span></h2>
+      <p>一笔画完所有线，每条线只能走一次。从任意点起手。</p>
+      <span class="go">开始 →</span>
+    </a>
+
+    <a class="card" href="games/moon/index.html">
+      <span class="ico">🌙</span>
+      <h2>月轮 <span class="tag new">新</span></h2>
+      <p>点一个圆环，相邻的环会反向转。把所有缺口对到月光上。</p>
+      <span class="go">开始 →</span>
+    </a>
+
+    <div class="card soon">
+      <span class="ico">🕯️</span>
+      <h2>下一款 <span class="tag">在写</span></h2>
+      <p>还在做。想玩什么类型的，去关于页的仓库里说一声。</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>月汐 · SULEN · 自研游戏</p>
+  <p style="margin-top:6px;opacity:.7">by 沫小汐 · 代码 MIT</p>
+</footer>
+
+<script src="assets/pwa.js"></script>
+</body>
+</html>
