@@ -1,7 +1,7 @@
 /* 月汐 SULEN · 离线缓存
    页面（HTML）走网络优先，避免改了首页还看到旧的；
    静态资源走缓存优先，断网也能用。 */
-const CACHE = "yuexi-v5";
+const CACHE = "yuexi-v6";
 const ASSETS = [
   "./", "./index.html", "./about.html", "./manifest.json",
   "./assets/base.css", "./assets/engine.js", "./assets/pwa.js", "./assets/icon.svg",
