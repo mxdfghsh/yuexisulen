@@ -121,47 +121,60 @@ body {
 
 		
 <script>
-/* 分片拼装：index.pck / index.wasm 被切成 8MB 的片段，
-   这里在 fetch 层把它们按顺序拼回一个流，Godot 引擎无感。 */
+/* 分片 + gzip 拼装
+   - index.pck：8MB 分片，按顺序拼成一个流
+   - index.wasm：4MB 的 gzip 分片，拼完再用 DecompressionStream 解开
+   - 底部显示真实进度 */
 (function () {
-  var PARTS = {
-    "index.pck": ["index.pck.p0","index.pck.p1","index.pck.p2","index.pck.p3","index.pck.p4","index.pck.p5"],
-    "index.wasm": ["index.wasm.p0","index.wasm.p1","index.wasm.p2","index.wasm.p3","index.wasm.p4"]
-  };
+  var PCK = ["index.pck.p0","index.pck.p1","index.pck.p2","index.pck.p3","index.pck.p4","index.pck.p5"];
+  var WASM = ["index.wasm.gz.p0","index.wasm.gz.p1","index.wasm.gz.p2"];
   var TYPES = { "index.pck": "application/octet-stream", "index.wasm": "application/wasm" };
   var origFetch = window.fetch.bind(window);
+  var tip = document.getElementById("yx-tip");
+  var bar = document.getElementById("yx-bar");
+  var totalBytes = 49233036 + 10083672;
+  var got = 0;
 
-  function assemble(name) {
-    return new Promise(function (resolve, reject) {
-      var queue = PARTS[name].slice();
-      var stream = new ReadableStream({
-        start: function (controller) {
-          function next() {
-            if (!queue.length) { controller.close(); return; }
-            var part = queue.shift();
-            origFetch(part).then(function (res) {
-              if (!res.ok) throw new Error("缺少分片 " + part);
-              var reader = res.body.getReader();
-              (function pump() {
-                reader.read().then(function (r) {
-                  if (r.done) { next(); return; }
-                  controller.enqueue(r.value);
-                  pump();
-                }).catch(reject);
-              })();
-            }).catch(reject);
-          }
-          next();
-        }
-      });
-      resolve(new Response(stream, { status: 200, headers: { "content-type": TYPES[name] } }));
+  function progress(n) {
+    got += n;
+    var p = Math.min(100, Math.round((got / totalBytes) * 100));
+    if (bar) bar.style.width = p + "%";
+    if (tip) tip.textContent = "加载中 " + p + "% · " + (got / 1048576).toFixed(1) + " / " + (totalBytes / 1048576).toFixed(0) + " MB";
+  }
+
+  function assemble(parts) {
+    var queue = parts.slice();
+    return new ReadableStream({
+      start: function (ctrl) {
+        (function next() {
+          if (!queue.length) { ctrl.close(); return; }
+          var part = queue.shift();
+          origFetch(part).then(function (res) {
+            if (!res.ok) throw new Error("缺少分片 " + part);
+            var reader = res.body.getReader();
+            (function pump() {
+              reader.read().then(function (r) {
+                if (r.done) { next(); return; }
+                got += r.value.length; progress(0);
+                ctrl.enqueue(r.value);
+                pump();
+              }).catch(function (e) { ctrl.error(e); });
+            })();
+          }).catch(function (e) { ctrl.error(e); });
+        })();
+      }
     });
   }
 
   window.fetch = function (input, init) {
-    var url = typeof input === "string" ? input : (input && input.url) || "";
-    for (var name in PARTS) {
-      if (url.split("?")[0].endsWith(name)) return assemble(name);
+    var url = (typeof input === "string" ? input : (input && input.url) || "").split("?")[0];
+    if (url.endsWith("index.pck")) {
+      return Promise.resolve(new Response(assemble(PCK), { status: 200, headers: { "content-type": TYPES["index.pck"] } }));
+    }
+    if (url.endsWith("index.wasm")) {
+      var stream = assemble(WASM);
+      if (window.DecompressionStream) stream = stream.pipeThrough(new DecompressionStream("gzip"));
+      return Promise.resolve(new Response(stream, { status: 200, headers: { "content-type": TYPES["index.wasm"] } }));
     }
     return origFetch(input, init);
   };
