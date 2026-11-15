@@ -103,6 +103,13 @@ body {
 </style>
 <a id="yx-back" href="../../index.html">← 月汐</a>
 <div id="yx-tip">首次加载约 80MB，稍等一下</div>
+<style id="yx-black">
+  /* 让留白也是黑的，和游戏背景一致 */
+  html, body{background:#000 !important;margin:0;padding:0;height:100%;overflow:hidden}
+  #canvas{background:#000 !important;width:100vw !important;height:100vh !important;
+    object-fit:contain;display:block;position:fixed;inset:0}
+  #status{background:#000 !important}
+</style>
 </head>
 	<body>
 		<canvas id="canvas">
