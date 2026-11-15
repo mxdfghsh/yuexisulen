@@ -1,7 +1,7 @@
 /* 月汐 SULEN · 离线缓存
    页面（HTML）走网络优先，避免改了首页还看到旧的；
    静态资源走缓存优先，断网也能用。 */
-const CACHE = "yuexi-v6";
+const CACHE = "yuexi-v7";
 const ASSETS = [
   "./", "./index.html", "./about.html", "./manifest.json",
   "./assets/base.css", "./assets/engine.js", "./assets/pwa.js", "./assets/icon.svg",
@@ -25,9 +25,13 @@ self.addEventListener("activate", (e) => {
   );
 });
 
+// 体积大的 Godot 导出不走缓存，避免手机存 80MB
+const NO_CACHE = /\/games\/buzd\//;
+
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
+  if (NO_CACHE.test(new URL(req.url).pathname)) return;
 
   // 页面：先要网络的，失败了再用缓存
   if (req.mode === "navigate" || (req.headers.get("accept") || "").includes("text/html")) {
