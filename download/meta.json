@@ -1,0 +1,8 @@
+{
+  "name": "buzd-v0.1.apk",
+  "size": 78150177,
+  "parts": 10,
+  "sha256": "b49e275c1c7868eeb71f6752bf6b8be63346d7c564fd2d542dc873abeac16fde",
+  "abi": "arm64-v8a",
+  "minAndroid": "8.0"
+}

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080b14">
+<title>下载 buzd · 月汐 SULEN</title>
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/base.css">
+<style>
+.dl{display:block;width:100%;margin:18px 0 10px;padding:16px;border-radius:14px;border:0;cursor:pointer;
+  font:800 16px/1 inherit;color:#08101f;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.dl[disabled]{opacity:.6}
+.bar{height:4px;border-radius:99px;background:var(--line);overflow:hidden;margin:12px 0 6px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s}
+.small{font-size:12px;color:var(--muted);line-height:1.8}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:12.5px;margin-top:6px}
+.kv b{color:var(--muted);font-weight:500}
+code{font-family:var(--mono);font-size:11.5px;word-break:break-all;color:var(--muted)}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="../index.html"><span class="moon">🌙</span><span>月汐<small>SULEN</small></span></a>
+  <div class="nav-links"><a href="../index.html">游戏</a><a href="../about.html">关于</a></div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">ANDROID APK</p>
+    <h1>下载 <em>buzd</em></h1>
+    <p class="lead">安卓安装包，74.5MB。不是网页游戏，装到手机上玩。</p>
+  </header>
+
+  <div class="card" style="margin-bottom:12px">
+    <button class="dl" id="dl" type="button">下载 APK（74.5 MB）</button>
+    <div class="bar"><i id="bar"></i></div>
+    <p class="small" id="st">点上面开始下载。文件分成 11 片，页面会拼好再存成 apk。</p>
+
+    <div class="kv">
+      <b>版本</b><span>v0.1</span>
+      <b>大小</b><span>74.5 MB</span>
+      <b>架构</b><span>arm64-v8a（近几年的安卓机）</span>
+      <b>要求</b><span>Android 8.0 以上</span>
+      <b>SHA256</b><span><code id="sha">b49e275c1c7868ee…</code></span>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <h2>怎么装</h2>
+    <p class="small">
+      1. 点下载，等进度走完（会存到「下载」文件夹）<br>
+      2. 打开文件管理器 → 下载 → 点 <code>buzd-v0.1.apk</code><br>
+      3. 系统提示「未知来源」→ 允许本次安装<br>
+      4. 装完桌面就有图标
+    </p>
+    <p class="small" style="margin-top:10px">iOS（苹果手机）装不了 APK，这一点没办法。</p>
+  </div>
+</main>
+
+<footer><p>月汐 · SULEN</p><p style="margin-top:6px;opacity:.7">by 沫小汐 · 代码 MIT</p></footer>
+
+<script>
+(function () {
+  var META = { parts: 10, size: 74521305, name: "buzd-v0.1.apk" };
+  var btn = document.getElementById("dl");
+  var bar = document.getElementById("bar");
+  var st = document.getElementById("st");
+
+  btn.addEventListener("click", async function () {
+    btn.disabled = true;
+    var chunks = [], got = 0;
+    var t0 = Date.now();
+    try {
+      // 先读 meta（有就用真实数值）
+      try {
+        var m = await fetch("./meta.json", { cache: "no-store" }).then(function (r) { return r.json(); });
+        META = { parts: m.parts, size: m.size, name: m.name };
+      } catch (e) {}
+
+      for (var i = 0; i < META.parts; i++) {
+        st.textContent = "正在下载第 " + (i + 1) + " / " + META.parts + " 片…";
+        var r = await fetch("./buzd.apk.p" + i, { cache: "no-store" });
+        if (!r.ok) throw new Error("分片 " + i + " 下载失败（HTTP " + r.status + "）");
+        var ab = await r.arrayBuffer();
+        chunks.push(ab);
+        got += ab.byteLength;
+        var pct = Math.round((got / META.size) * 100);
+        bar.style.width = pct + "%";
+        st.textContent = "已下载 " + pct + "% · " + (got / 1048576).toFixed(1) + " / " + (META.size / 1048576).toFixed(1) + " MB";
+      }
+
+      st.textContent = "正在合成…";
+      var blob = new Blob(chunks, { type: "application/vnd.android.package-archive" });
+      chunks = null;
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url; a.download = META.name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+      st.textContent = "下载完成（" + ((Date.now() - t0) / 1000).toFixed(0) + " 秒）。去「下载」文件夹里找 " + META.name;
+      bar.style.width = "100%";
+    } catch (e) {
+      st.textContent = "失败：" + e.message + "。可以再点一次重试。";
+      btn.disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>
