@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080b14">
+<title>音乐 · 月汐 SULEN</title>
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/base.css">
+<style>
+.player{background:linear-gradient(180deg,var(--surface),var(--surface2));border:1px solid var(--line);
+  border-radius:18px;padding:18px;margin-bottom:14px}
+.player h2{margin:0 0 4px;font-size:18px}
+.player .meta{font:500 12px/1.6 var(--mono);color:var(--muted);margin-bottom:14px}
+audio{width:100%;height:42px;border-radius:10px;background:#000}
+.acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.acts a,.acts button{flex:1;min-width:120px;text-align:center;padding:11px;border-radius:11px;
+  border:1px solid var(--line2);background:transparent;color:var(--ink);font:600 13px/1 inherit;cursor:pointer;text-decoration:none}
+.acts a:hover,.acts button:hover{border-color:var(--accent);color:var(--accent)}
+.note{font-size:12px;color:var(--muted);line-height:1.8;margin-top:10px}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="../index.html"><span class="moon">🌙</span><span>月汐<small>SULEN</small></span></a>
+  <div class="nav-links"><a href="../index.html">游戏</a><a href="../about.html">关于</a></div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">MUSIC</p>
+    <h1>自己做的<em>音乐</em></h1>
+    <p class="lead">写完就放这儿，本地文件，不依赖任何音乐平台。</p>
+  </header>
+
+  <section class="player">
+    <h2>11月18日</h2>
+    <p class="meta">3:54 · MP3 320kbps · 2026-11-18</p>
+    <audio controls preload="metadata" src="11yue18.mp3"></audio>
+    <div class="acts">
+      <a href="11yue18.mp3" download="11月18日.mp3">下载 MP3</a>
+    </div>
+    <p class="note">录屏抓下来的音频，开头结尾可能带一点界面杂音。想要无损或干净版本，得从生成平台原文件导出。</p>
+  </section>
+</main>
+
+<footer><p>月汐 · SULEN</p><p style="margin-top:6px;opacity:.7">by 沫小汐</p></footer>
+<script src="../assets/pwa.js"></script>
+</body>
+</html>
